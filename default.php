@@ -11,6 +11,8 @@ require_once 'classes/tools.class.php';
 require_once 'classes/errors.class.php';
 require_once 'classes/dbqueries.class.php';
 require_once 'classes/endecrypt.class.php';
+require_once 'classes/dataformatconstants.class.php';
+require_once 'classes/htmlobjectsconstants.class.php';
 
 function GetAhash(){
 	$currentNanoSecond = (int) (microtime(true) * 1000000000);
@@ -18,6 +20,9 @@ function GetAhash(){
 	return $randomHash;
 }
 
+$DataFormatConstants = new DataFormatConstants();
+$HtmlObjectConstants = new HtmlObjectConstants();
+	
 $is_local = ( $_SERVER['REQUEST_URI'] == '/xampp/supersearch/default.php' ) ? true : false;
 
 $action = "";
