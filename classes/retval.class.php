@@ -15,7 +15,6 @@ if(!class_exists('clsRetval')){
 				'origin_info'=>'',
 				'status'=>'notOK', 
 				'msg'=>'', 
-				'kev'=>'hey there',
 				'record_set'=>array(), 
 				'field_names'=>array(),
 				'insert_id'=>0, 
