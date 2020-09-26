@@ -19,10 +19,10 @@ if(!class_exists('ConnectionProperties')){
 			$num_args = func_num_args();
 
 			/*
-			$this->dbname = 'supersearchdb';
+			$this->dbname = 'DB_NAME_HERE';
 			$this->servername = 'localhost';
-			$this->username = 'nikasweetie';
-			$this->password = 'ismellskunk';
+			$this->username = 'DB_USERNAME_HERE';
+			$this->password = 'DB_PASSWORD_HERE';
 			*/
 				
 			/**/
