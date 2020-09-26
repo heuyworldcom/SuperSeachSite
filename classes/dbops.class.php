@@ -5,11 +5,11 @@ if(!class_exists('clsDBOps')){
 		//var $retval;
 		var $today;
 		public $queryType='';
-		public $mp = 'npa8WsqCpN7';
+		public $mp = 'PASSWORD_HERE';
 		
 		function __construct(){
 			$this->today = date( 'Y-m-d' );
-			$this->mp = "npa8WsqCpN7";
+			$this->mp = "PASSWORD_HERE";
 			//$this->retval = array('status'=>'notOK', 'msg'=>'', 'kev'=>'hey there','record_set'=>array(), 'insert_id'=>0, 'affected_rows'=>0);
 		}		
 		
@@ -37,7 +37,6 @@ if(!class_exists('clsDBOps')){
 			
 			// Create connection
 			try{
-				//$obj_conn = new mysqli("localhost","root","","sweetsDB");
 				$obj_conn = new mysqli( $cnnprops->servername, $cnnprops->username, $cnnprops->password, $cnnprops->dbname);
 			}
 			catch(mysqli_sql_exception $exConnect)
@@ -192,92 +191,7 @@ if(!class_exists('clsDBOps')){
 		}
 		
 		
-		public function AddNarrative( $cnnprops, $user_id, $readings_id, $narrative, $action, $narration_id, $user_ref ){
-			$retval = new clsRetval();
-			$clsDBOps = new clsDBOps();
-			$retvalReadingExists = new clsRetval();
-			$retvalNarrationAlreadyExists = new clsRetval();
-			
-			
-			
-			
-			
-			// Validate user before anything!
-			$retval = $this->ExecuteSelectQuery( $cnnprops, "SELECT ID FROM users WHERE user_hash='".$user_ref ."';" );
-			if($retval->retval['status']=='OK'){
-					//=@#%&*()-_ ]*$
-					$narrative = $this->strip_quotes( $narrative, array( "<", ">", "`", "{", "}", "@", "(", ")", "//", "&", "=", "?", "+", ":", "[", "]", "$", "|" ) ); // Strips out single and double quotes + optional others
-					
-					if(strlen($narrative)>0){
-						if($action=='Add'){
-							$retvalReadingExists = $this->ExecuteSelectQuery( $cnnprops, "SELECT readings_id FROM readings WHERE readings_id=".$readings_id ); // 1. IS READING_ID BEING SUBMITTED AVAILABLE IN READINGS TABLE?
-							$retvalNarrationAlreadyExists = $this->ExecuteSelectQuery( $cnnprops, "SELECT `narration_id`, `narration` FROM `reading_narrations` WHERE readings_id=".$readings_id.";");  // 2. DOES NARRATION ALREADY EXIST IN NARRATION TABLE?
-							
-							if($retvalReadingExists->retval['status'] == 'OK') // Yes. Valid readings_id
-							{
-								if($retvalNarrationAlreadyExists->retval['status'] == 'OK') // Yes. Narration already exists for this reading so Update it.
-								{
-									$mySql = "UPDATE `reading_narrations` SET `narration` = CONCAT(`narration`, '".$narrative."'),`last_updated`='".date('Y-m-d H:m:s')."' WHERE readings_id=".$readings_id." AND user_id=".$user_id;
-									$retval = $this->ExecuteUpdateQuery( $cnnprops, $mySql );	
-										if($retval->retval['affected_rows']==0){
-											$retval->retval['msg']='DUPLICATE - Could not update record.';
-										}
-										else
-										{
-											$retval->retval['msg']='DUPLICATE - Narrative already existed so it was updated.';
-										}
-									
-								}else { // No. Narration does not exist so we will add it.
-									$mySql = "INSERT INTO `reading_narrations`(`created_date`, `readings_id`, `user_id`, `active`, `narration`) VALUES ('".date('Y-m-d H:m:s')."', '".$readings_id."','".$user_id."','1','".$narrative."')";	
-									$retval = $this->ExecuteInsertQuery( $cnnprops, $mySql );
-
-									if($retval->retval['status']=='OK'){
-										$retval->retval['msg'] = 'Narrative added for your reading.';
-									}
-								}
-							}else {
-								$retval->retval['msg']='FATAL ERROR: Reading does not exist for this narrative.';
-							}
-
-						}
-						
-						
-						if($action=='Update'){
-							$mySql = "UPDATE `reading_narrations` SET `narration`='".$narrative."',`last_updated`='".date('Y-m-d H:m:s')."' WHERE readings_id=".$readings_id." AND narration_id=".$narration_id." AND user_id=".$user_id;
-							$retval = $this->ExecuteUpdateQuery( $cnnprops, $mySql );	
-							if($retval->retval['affected_rows']==0){
-								$retval->retval['msg']='Could not update record.';
-							}else{
-								$retval->retval['msg']='Narrative was updated.';
-							}
-						}
-						
-					}else{
-						$retval->retval['msg'] = 'No valid characters were found in Narrative.';
-					}
-
-
-
-				
-			}else{
-				$retval->retval['msg'] = 'FATAL ERROR: USER DOES NOT EXIST!';
-				$err = new clsErrors();
-				$err->AddError( __CLASS__.'->'.__FUNCTION__, __LINE__, 'FATAL ERROR: USER DOES NOT EXIST!', $user_id, $user_ref );
-				unset( $err );
-			}
-			
-			
-			// Create and update user with new user_hash
-			$user = new clsUser();
-			$retval->retval['user_ref'] = $user->updateUserRef( $user_id, $user_ref );
-			unset( $user );
-			
-			
-			$retval->retval['inserted_narrative'] = $narrative;
-			unset ( $cnnprops, $clsDBOps, $retvalReadingExists, $retvalNarrationAlreadyExists );
-			return $retval;
-		}
-
+		
 		private function strip_quotes($strIn,$aryMoreToStrip=false){
 			$strIn = str_replace("'","",$strIn);
 			$strIn = str_replace('"',"",$strIn);
