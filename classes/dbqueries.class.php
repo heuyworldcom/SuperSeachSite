@@ -66,7 +66,7 @@
       public function DoesUserExistSql( $aryParams ){
             $user_name = $this::ExtractVariable( $aryParams , 'user_name' );
             $password = $this::ExtractVariable( $aryParams , 'user_pswd' );
-            $user_login = hash('ripemd160', $user_name."|n|".$password."|n|nGDhmyzsawm5efc"); // NEVER CHANGE THIS LINE
+            $user_login = hash('ripemd160', $user_name."|n|".$password."|n|PASSWORD_HERE"); // NEVER CHANGE THIS LINE
             $sql = "SELECT ID FROM users WHERE user_login='".$user_login."';";
             return $sql;
       }
@@ -76,7 +76,7 @@
             $sql = "INSERT INTO `users`(`created_date`, `user_hash`, `last_login`, `user_login`, `num_logins`, `user_class_id`, `consent_store_email`, `failed_logins`, `active`, `user_name` ";
             $user_name = $this::ExtractVariable( $aryParams , 'user_name' );
             $password = $this::ExtractVariable( $aryParams , 'user_pswd' );
-            $user_login = hash('ripemd160', $user_name."|n|".$password."|n|nGDhmyzsawm5efc"); // NEVER CHANGE THIS LINE
+            $user_login = hash('ripemd160', $user_name."|n|".$password."|n|PASSWORD_HERE"); // NEVER CHANGE THIS LINE
             $sql = substr($sql,0,strlen($sql)-1);
             $sql .= ") VALUES('".date('Y-m-d H:m:s')."','".$this::GetAhash()."','".date('Y-m-d H:m:s')."','".$user_login."','1','1','1','0','1','".$user_name."');";
             return $sql;
