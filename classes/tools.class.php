@@ -103,25 +103,7 @@ if(!class_exists('clsTools')){
 		}
 
 		public function BuildSaveSearchSql( $aryParams ){
-			$sqlKeys="";
-			$sqlVals="";
-			$sqlMain = "INSERT INTO supersearch(`user_id`,`created_date`,";
-
-			foreach($aryParams as $k=>$v){ 
-				foreach($v as $k1=>$v1){ 
-					if($k1 != 'action'){ 
-						$v1 = $this::CleanSql($v1);
-						$sqlKeys .= "`".$this::CleanSql($k1)."`,";
-						$sqlVals .= "'".addslashes($v1)."',";
-					} 
-				} 
-			}
-
-			$sqlVals = substr($sqlVals,0,strlen($sqlVals)-1);
-			$sqlKeys = substr($sqlKeys,0,strlen($sqlKeys)-1);
-			$sqlMain .= $sqlKeys.") VALUES('1','".date('Y-m-d H:m:s')."',".$sqlVals.");";
-
-			return $sqlMain;
+			return "";
 		}
 
 		public function CleanSql($sql){
