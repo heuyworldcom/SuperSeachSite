@@ -7,11 +7,8 @@ if( isset($_GET['auth0rize']) || isset($_POST['action'])){
 require_once 'classes/cnnprops.class.php';
 require_once 'classes/dbops.class.php';
 require_once 'classes/retval.class.php';
-//require_once 'classes/transactions.class.php';
 require_once 'classes/tools.class.php';
-//require_once 'classes/datagrabber.class.php';
 require_once 'classes/errors.class.php';
-//require_once 'classes/mypdo.class.php';
 require_once 'classes/dbqueries.class.php';
 require_once 'classes/endecrypt.class.php';
 
@@ -34,13 +31,6 @@ if(isset($_SERVER['REMOTE_ADDR'])){
 	}
 }
 
-//$cnnprops = new ConnectionProperties();
-//$errors = new clsErrors();
-//$dbops = new clsDBOps();
-//$DataGrabber = new DataGrabber($is_local);
-//$ret = new clsRetval();
-//$Tools = new clsTools();
-
 if(isset($_POST)){
 	if(isset($_POST['action'])){
 		$action = $_POST['action'];
@@ -49,60 +39,7 @@ if(isset($_POST)){
 
 $hash = GetAhash();
 
-	
-
 $web_url = ($is_local===true) ? "http://localhost:81/xampp/supersearch.com/" : "http://www.phpdeveloperpro.com/supersearch/";
-
-/*
-[{"Name":"C# ASP.NET"},{"Url":"https://www.google.com/search?q="},{"ShortDesc":"X"},{"SearchPrefix":"c# asp.net"},{"action":"save_search"}]
-Array
-(
-    [action] => execute
-    [params] => Array
-        (
-            [0] => Array
-                (
-                    [Name] => C# ASP.NET
-                )
-
-            [1] => Array
-                (
-                    [Url] => https://www.google.com/search?q=
-                )
-
-            [2] => Array
-                (
-                    [ShortDesc] => X
-                )
-
-            [3] => Array
-                (
-                    [SearchPrefix] => c# asp.net
-                )
-
-            [4] => Array
-                (
-                    [action] => save_search
-                )
-
-        )
-
-)
-Array
-(
-    [action] => execute
-    [params] => Array
-        (
-            [0] => Array
-                (
-                    [action] => get_supersearches
-                )
-
-        )
-
-)
-
-*/
 
 // Fake out site and default to View Searches
 /*
@@ -122,32 +59,6 @@ if($action!=''){
             $executeAction = $Tools->FindExecuteAction( $aryParams );
             switch($executeAction){
                 case "create_account":
-                    /*
-                        [action] => execute
-                        [params] => Array
-                            (
-                                [0] => Array
-                                    (
-                                        [user_name] => Dallas
-                                    )
-
-                                [1] => Array
-                                    (
-                                        [user_email] => heuyworld@hotmail.com
-                                    )
-
-                                [2] => Array
-                                    (
-                                        [user_pswd] => test
-                                    )
-
-                                [3] => Array
-                                    (
-                                        [action] => create_account
-                                    )
-
-                   
-                    print_r($_POST); */
                     $dbops = new clsDBOps();
                     $dbq = new DBQueries();
                     $ret = new clsRetval();
@@ -187,19 +98,6 @@ if($action!=''){
                     echo json_encode( $ret );
                 break;
                 case "save_search":
-                    $Tools = new clsTools();
-                    $dbops = new clsDBOps();
-                    $ret = new clsRetval();
-
-                    $sql = $Tools->BuildSaveSearchSql( $aryParams );
-                    $ret = $dbops->ExecuteInsertQuery( new ConnectionProperties() , $sql );
-                    if($ret->retval['status']=='OK'){
-                        $ret->retval['search_saved']=1;
-                    }else{
-                        $ret->retval['search_saved']=0;
-                    }
-                    unset( $dbq, $dbops );
-                    echo json_encode( $ret );
                 break;
             }
 			break;
@@ -295,18 +193,6 @@ if($action!=''){
                         $("div#div_section_help").show();
                         break;
                     case "btn_supersearch_submit":
-                        if(ValidateForm()===true){
-                            var objJson = [];
-                            $.each($('.requred'), function (index, value) {
-                                var item = {}
-                                item[this.id]=$("#"+this.id).val();
-                                objJson.push(item);
-                            });
-                            item={}
-                            item['action']='save_search';
-                            objJson.push(item);
-                            Execute(objJson);
-                        }
                         break;
                     case "a_section_create_search":
                         $("div#div_create_search").show();
