@@ -31,7 +31,7 @@ $polls_html = "";
 $itsme = false;
 
 if(isset($_SERVER['REMOTE_ADDR'])){
-	if($_SERVER['REMOTE_ADDR']=='24.250.48.133'){
+	if($_SERVER['REMOTE_ADDR']=='YOUR_LIVE_IP_ADDRESS'){
 		$itsme = true;
 	}
 }
@@ -44,16 +44,7 @@ if(isset($_POST)){
 
 $hash = GetAhash();
 
-$web_url = ($is_local===true) ? "http://localhost:81/xampp/supersearch.com/" : "http://www.phpdeveloperpro.com/supersearch/";
-
-// Fake out site and default to View Searches
-/*
-if($action==''){
-    $_POST['action'] = 'execute';
-    $action = 'execute';
-    $_POST['params'] = array( '0' => array( 'action' => 'get_supersearches' ) );
- }
-*/
+$web_url = ($is_local===true) ? "YOUR_LOCAL_WEB_ADDRESS" : "YOUR_LIAVE_WEB_ADDRESS";
 
 if($action!=''){
 	switch($action){
