@@ -24,29 +24,7 @@
       
       }
 
-      /*
-      [params] => Array
-                            (
-                                [0] => Array
-                                    (
-                                        [user_name] => Dallas
-                                    )
-
-                                [1] => Array
-                                    (
-                                        [user_email] => heuyworld@hotmail.com
-                                    )
-
-                                [2] => Array
-                                    (
-                                        [user_pswd] => test
-                                    )
-
-                                [3] => Array
-                                    (
-                                        [action] => create_account
-                                    )
-      */
+     
 
       private function GetAhash(){
             $currentNanoSecond = (int) (microtime(true) * 1000000000);
