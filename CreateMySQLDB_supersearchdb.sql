@@ -426,9 +426,6 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`ID`, `created_date`, `user_name`, `user_email`, `user_pswd`, `user_hash`, `last_login`, `user_login`, `num_logins`, `user_class_id`, `consent_store_email`, `failed_logins`, `active`) VALUES
-(1, '2019-12-26 00:00:00', 'Kevin', 'heuyworld@hotmail.com', 'getherdown', 'abc', '2019-12-26 00:00:00', 'abc', 1, 1, 1, 0, 1),
-(2, '2019-12-27 09:12:43', 'Dallas', '', '', 'c8d575a18b96be46b061846283b8ff2d5c9c7df5', '2019-12-27 09:12:43', '0d7ca8a86abd2e5982ac9c744f2e0cfc30ef277a', 1, 1, 1, 0, 1),
-(3, '2020-02-20 18:02:12', 'csi901@sbcglobal.net', '', '', 'f5adf80d38fa1c90ef7b33fc53d9232878ad5540', '2020-02-20 18:02:12', '0544424bb061c17c28414d28d491fbdf53921864', 1, 1, 1, 0, 1);
 
 --
 -- Indexes for dumped tables
